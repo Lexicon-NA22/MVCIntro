@@ -1,10 +1,21 @@
-﻿@model IEnumerable<Employee>
+﻿@model IEnumerable<EmployeeIndexViewModel>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Personalregister";
 }
 
-<h1>Index</h1>
+<h1>Personalregister</h1>
+
+<form asp-action="Search">
+    <div class="input-group mb-3">
+        <input type="text" name="name" class="form-control" placeholder="Sök på namn"/>
+        <div class="input-group-append">
+            <button type="submit" class="btn btn-outline-secondary">Sök</button>
+        </div>
+    </div>
+</form>
+
+
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -15,12 +26,12 @@
             <th>
                 @Html.DisplayNameFor(model => model.Name)
             </th>
-            <th>
+@*            <th>
                 @Html.DisplayNameFor(model => model.Age)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Salary)
-            </th>
+            </th>*@
             <th>
                 @Html.DisplayNameFor(model => model.Department)
             </th>
@@ -33,12 +44,12 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
-            <td>
+@*            <td>
                 @Html.DisplayFor(modelItem => item.Age)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Salary)
-            </td>
+            </td>*@
             <td>
                 @Html.DisplayFor(modelItem => item.Department)
             </td>

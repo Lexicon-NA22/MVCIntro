@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MVCIntro.Data;
 using MVCIntro.Models;
+using MVCIntro.Models.ViewModels;
 
 namespace MVCIntro.Controllers
 {
@@ -23,8 +24,47 @@ namespace MVCIntro.Controllers
         // GET: Employees
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Employee.ToListAsync());
+
+            var viewModel = _context.Employee.Select(e => new EmployeeIndexViewModel
+            {
+                Id = e.Id,
+                Name = e.Name,
+                Department = e.Department
+            });
+
+
+            return View(await viewModel.ToListAsync());
         }
+
+        public async Task<IActionResult> Search(string name)
+        {
+            var viewModel = _context.Employee
+                //.Where(e => e.Name.Contains(name))
+                //.Where(e => e.Name == name)
+                .Where(e => e.Name.StartsWith(name))
+                .Select(e => new EmployeeIndexViewModel
+                {
+                    Id = e.Id,
+                    Name = e.Name,
+                    Department = e.Department
+                });
+
+            return View(nameof(Index), await viewModel.ToListAsync());
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         // GET: Employees/Details/5
         public async Task<IActionResult> Details(int? id)
